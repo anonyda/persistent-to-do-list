@@ -6,7 +6,7 @@ function Task(data){
     
 }
 
-let tasks = [];
+let tasks = JSON.parse(localStorage.getItem('tasks'));
 
 let taskInput = document.getElementById('task');
 let taskList = document.getElementById('task-list');
@@ -70,11 +70,11 @@ const addToLocalStorage = (tasks) => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
-const getFromLocalStorage = () => {
-    let tasks = JSON.parse(localStorage.getItem('tasks'));
+const getFromLocalStorage = (tasks) => {
+    // let tasks = JSON.parse(localStorage.getItem('tasks'));
     tasks.forEach((task)=>{
         addToDom(task);
     })
 }
 
-getFromLocalStorage();
+getFromLocalStorage(tasks);
