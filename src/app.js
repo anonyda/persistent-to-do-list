@@ -25,12 +25,12 @@ const addToDom = (task) =>{
         isCompletedBox.checked = true;
     }
     let taskLog = document.createElement('p');
-    let deleteBtn = document.createElement('input');
+    let deleteBtn = document.createElement('i');
     deleteBtn.id = task.id;
-    deleteBtn.value = 'Delete'
-    deleteBtn.type = 'button';
-    deleteBtn.innerText = 'Delete Task';
-    deleteBtn.classList.add('deleteBtn', 'button');
+    // deleteBtn.value = 'Delete'
+    // deleteBtn.type = 'button';
+    // deleteBtn.innerHTML = '<i class="fa fa-trash-o"></i>'
+    deleteBtn.classList.add('deleteBtn', 'fas', 'fa-trash');
     deleteBtn.addEventListener('click', deleteTask);
 
     taskData.innerText = task.data;

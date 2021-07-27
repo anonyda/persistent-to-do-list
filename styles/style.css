@@ -6,7 +6,7 @@
 
 body{
     min-height: 100vh;
-    background-color: #a39bd2;
+    background-color: #ca9e7b;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,13 +74,19 @@ h1{
     font-family: 'Coming Soon', cursive;
     box-shadow: 0 2px 0 hsl(198, 1%, 29%);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    background-color: #a39bd2;
+    background-color: #98694F;
+    color: white;
     transition: all 0.2s ease-in;
+    font-weight: 500;
 
 }
 
+i{
+    color: #98694F;
+}
+
 .button:hover{
-    background-color: #7563db;
+    background-color: #ca9e7b;
 }
 
 .button:active{
@@ -135,15 +141,16 @@ h1{
 	position: absolute;
 	top: 0px;
 	left: 3px;
-	color: black;
+	color: #98694F;
 }
 
 .deleteBtn{
     margin-left: auto;
+    align-self: center;
 }
 
 .checked{
-    text-decoration: line-through;
+    text-decoration: line-through #98694F;
 }
 
 @media (max-width: 576px) {
