@@ -2,8 +2,13 @@ function Task(data){
     this.id = uuidv4()
     this.data = data;
     this.isCompleted = false;
-    this.createdAt = new Date();
+    this.createdAt = formatTime(new Date());
     
+}
+
+const formatTime = (date) =>{
+    let formattedTime = `${date.getHours()}:${date.getMinutes()}`
+    return formattedTime;
 }
 
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -60,12 +65,14 @@ const addToDom = (task) =>{
     // taskData.innerText = task.data;
     taskData.value = task.data;
     taskLog.innerText = task.createdAt;
+    taskLog.classList.add('date-time');
 
     taskDiv.appendChild(isCompletedBox);
     taskDiv.appendChild(taskData);
+    taskDiv.appendChild(taskLog);
     taskDiv.appendChild(updateBtn);
     taskDiv.appendChild(updateCheck);
-    // taskDiv.appendChild(taskLog);
+    
     taskDiv.appendChild(deleteBtn);
     taskList.appendChild(taskDiv);
 }
@@ -94,7 +101,7 @@ const updateTask = (event) =>{
                         event.target.style.display = 'none';
                         event.target.nextElementSibling.style.display = 'unset';
                         item.contentEditable = true;
-                        item.classList.add('box-shadow')
+                        item.classList.add('box-shadow');
                         
                     }
                 })
@@ -126,11 +133,15 @@ const updateTaskContent = (event) => {
 
 const deleteTask = (event) =>{
     // console.log('delete button pressed', event.target.id);
-    tasks = tasks.filter((item) => {
-        return item.id != event.target.id
-    })
-    document.getElementById(event.target.id).remove();
-    addToLocalStorage(tasks);
+    console.log(event);
+    if(confirm(`Do you really want to delete this task?`)){
+        tasks = tasks.filter((item) => {
+            return item.id != event.target.id
+        })
+        document.getElementById(event.target.id).remove();
+        addToLocalStorage(tasks);
+    }
+    
 }
 
 const isCompeletedTask = (event) =>{
@@ -156,4 +167,10 @@ const getFromLocalStorage = (tasks) => {
 if (localStorage.getItem('tasks') !== null){
     getFromLocalStorage(tasks);
 }
+
+n =  new Date();
+y = n.getFullYear();
+m = n.getMonth() + 1;
+d = n.getDate();
+document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
    

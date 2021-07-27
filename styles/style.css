@@ -123,6 +123,12 @@ i{
     text-align: left;
 }
 
+.date-time{
+    font-size: 13px;
+    color: black;
+    align-self: center;
+}
+
 .textarea{
     max-width: 50%;
     padding-top: 10px;
