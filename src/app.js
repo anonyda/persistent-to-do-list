@@ -2,7 +2,7 @@ function Task(data){
     this.id = uuidv4()
     this.data = data;
     this.isCompleted = false;
-    this.createdAt = Date;
+    this.createdAt = new Date();
     
 }
 
