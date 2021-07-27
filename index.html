@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
+    <script src="./src/app.js" defer></script>
+    <title>To Do List</title>
+</head>
+<body>
+    <h1>To Do List</h1>
+    <div class="input-container">
+        <form action="#" name="taskInput" onsubmit="addTask(event)">
+            <label for="task">Enter your Task</label>
+            <input type="text" name="task" id="task">
+            <input type="submit" value="Add">
+            <input type="button" value="Reset">
+            <!-- <button>Add Task</button>
+            <button id="resetTask">Reset</button> -->
+        </form>
+    </div>
+    <div id="task-list">
+
+    </div>
+</body>
+</html>
