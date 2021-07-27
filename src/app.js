@@ -2,11 +2,11 @@ function Task(data){
     this.id = uuidv4()
     this.data = data;
     this.isCompleted = false;
-    this.createdAt = Date.now();
+    this.createdAt = Date;
     
 }
 
-let tasks = JSON.parse(localStorage.getItem('tasks'));
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 let taskInput = document.getElementById('task');
 let taskList = document.getElementById('task-list');
@@ -45,12 +45,12 @@ const addToDom = (task) =>{
 
 const addTask = (event) =>{
     event.preventDefault();
-    console.log(event)
+    // console.log(event)
     let task = new Task(taskInput.value);
     tasks.push(task);
     addToDom(task);
     addToLocalStorage(tasks);
-    console.log(tasks);
+    // console.log(tasks);
     taskInput.value = "";
 }
 
@@ -59,7 +59,7 @@ const resetInput = () => {
 }
 
 const deleteTask = (event) =>{
-    console.log('delete button pressed', event.target.id);
+    // console.log('delete button pressed', event.target.id);
     tasks = tasks.filter((item) => {
         return item.id != event.target.id
     })
@@ -68,7 +68,7 @@ const deleteTask = (event) =>{
 }
 
 const isCompeletedTask = (event) =>{
-    console.log(event.target.parentElement.id);
+    // console.log(event.target.parentElement.id);
     tasks.forEach((item) => {
         if(item.id == event.target.parentElement.id){
             item.isCompleted = !item.isCompleted;
@@ -88,4 +88,7 @@ const getFromLocalStorage = (tasks) => {
     })
 }
 
-getFromLocalStorage(tasks);
+if (localStorage.getItem('tasks') !== null){
+    getFromLocalStorage(tasks);
+}
+   

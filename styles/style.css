@@ -36,7 +36,6 @@ h1{
     margin-bottom: 1rem;
     transform: rotate(2deg);
     padding: 0.2rem 1.2rem;
-    border-radius: 20% 5% 20% 5%/5% 20% 25% 20%;
     background-color: #ffff00;
     font-size: 1.8rem;
     /* width: fit-content; */
@@ -76,7 +75,16 @@ h1{
     box-shadow: 0 2px 0 hsl(198, 1%, 29%);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     background-color: #a39bd2;
+    transition: all 0.2s ease-in;
 
+}
+
+.button:hover{
+    background-color: #7563db;
+}
+
+.button:active{
+    transform: rotate(-2deg);
 }
 
 /* 
