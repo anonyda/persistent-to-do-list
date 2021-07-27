@@ -15,29 +15,47 @@ const addToDom = (task) =>{
     let taskDiv = document.createElement('div');
     taskDiv.id = task.id;
     taskDiv.classList.add('task');
+
     let isCompletedBox = document.createElement('input');
     isCompletedBox.type = 'checkbox';
     isCompletedBox.classList.add('checkbox');
     isCompletedBox.addEventListener('change', isCompeletedTask);
-    let taskData = document.createElement('p');
+    let taskData = document.createElement('input');
+
+    taskData.disabled = true;
+    taskData.style.border = 'none';
+    taskData.classList.add('task')
+
     if(task.isCompleted){
         taskData.classList.add('checked');
         isCompletedBox.checked = true;
     }
+
     let taskLog = document.createElement('p');
+
+    let updateCheck = document.createElement('i');
+    updateCheck.classList.add('deleteBtn', 'fas', 'fa-check');
+    updateCheck.style.display = 'none';
+    updateCheck.addEventListener('click', updateTaskContent);
+
+    let updateBtn = document.createElement('i');
+    updateBtn.id = task.id;
+    updateBtn.classList.add('fas', 'fa-edit', 'deleteBtn');
+    updateBtn.addEventListener('click', updateTask);
+
     let deleteBtn = document.createElement('i');
     deleteBtn.id = task.id;
-    // deleteBtn.value = 'Delete'
-    // deleteBtn.type = 'button';
-    // deleteBtn.innerHTML = '<i class="fa fa-trash-o"></i>'
     deleteBtn.classList.add('deleteBtn', 'fas', 'fa-trash');
     deleteBtn.addEventListener('click', deleteTask);
 
-    taskData.innerText = task.data;
+    // taskData.innerText = task.data;
+    taskData.value = task.data;
     taskLog.innerText = task.createdAt;
 
     taskDiv.appendChild(isCompletedBox);
     taskDiv.appendChild(taskData);
+    taskDiv.appendChild(updateBtn);
+    taskDiv.appendChild(updateCheck);
     // taskDiv.appendChild(taskLog);
     taskDiv.appendChild(deleteBtn);
     taskList.appendChild(taskDiv);
@@ -58,6 +76,42 @@ const resetInput = () => {
     taskInput.value = "";
 }
 
+const updateTask = (event) =>{
+    tasks.forEach((task)=>{
+        if(task.id == event.target.id){
+            if(!task.isCompleted){
+                event.target.parentNode.childNodes.forEach((item) => {
+                    if(item.classList.contains('task')){
+                        event.target.style.display = 'none';
+                        event.target.nextElementSibling.style.display = 'unset';
+                        item.disabled = false;
+                    }
+                })
+            }else{
+                alert("Task is already completed! Can't edit :(")
+            }
+        }
+
+    })
+    
+}
+
+const updateTaskContent = (event) => {
+    event.target.parentNode.childNodes.forEach((item) => {
+        if(item.classList.contains('task')){
+            tasks.forEach((task) => {
+                if(task.id == event.target.nextElementSibling.id){
+                    task.data = item.value;
+                    event.target.style.display = 'none';
+                    event.target.previousElementSibling.style.display = 'unset';
+                    item.disabled=true;
+                }
+            })
+        }
+    })
+    addToLocalStorage(tasks);
+}
+
 const deleteTask = (event) =>{
     // console.log('delete button pressed', event.target.id);
     tasks = tasks.filter((item) => {
@@ -68,7 +122,6 @@ const deleteTask = (event) =>{
 }
 
 const isCompeletedTask = (event) =>{
-    // console.log(event.target.parentElement.id);
     tasks.forEach((item) => {
         if(item.id == event.target.parentElement.id){
             item.isCompleted = !item.isCompleted;
