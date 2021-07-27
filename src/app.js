@@ -14,20 +14,23 @@ let taskList = document.getElementById('task-list');
 const addToDom = (task) =>{
     let taskDiv = document.createElement('div');
     taskDiv.id = task.id;
+    taskDiv.classList.add('task');
     let isCompletedBox = document.createElement('input');
     isCompletedBox.type = 'checkbox';
+    isCompletedBox.classList.add('checkbox');
     isCompletedBox.addEventListener('change', isCompeletedTask);
+    let taskData = document.createElement('p');
     if(task.isCompleted){
-        taskDiv.classList.add('checked');
+        taskData.classList.add('checked');
         isCompletedBox.checked = true;
     }
-    let taskData = document.createElement('p');
     let taskLog = document.createElement('p');
     let deleteBtn = document.createElement('input');
     deleteBtn.id = task.id;
     deleteBtn.value = 'Delete'
     deleteBtn.type = 'button';
-    deleteBtn.innerText = 'Delete Task'
+    deleteBtn.innerText = 'Delete Task';
+    deleteBtn.classList.add('deleteBtn', 'button');
     deleteBtn.addEventListener('click', deleteTask);
 
     taskData.innerText = task.data;
@@ -35,7 +38,7 @@ const addToDom = (task) =>{
 
     taskDiv.appendChild(isCompletedBox);
     taskDiv.appendChild(taskData);
-    taskDiv.appendChild(taskLog);
+    // taskDiv.appendChild(taskLog);
     taskDiv.appendChild(deleteBtn);
     taskList.appendChild(taskDiv);
 }
@@ -48,6 +51,11 @@ const addTask = (event) =>{
     addToDom(task);
     addToLocalStorage(tasks);
     console.log(tasks);
+    taskInput.value = "";
+}
+
+const resetInput = () => {
+    taskInput.value = "";
 }
 
 const deleteTask = (event) =>{
@@ -64,12 +72,9 @@ const isCompeletedTask = (event) =>{
     tasks.forEach((item) => {
         if(item.id == event.target.parentElement.id){
             item.isCompleted = !item.isCompleted;
-            item.isCompleted ? event.target.parentElement.classList.add('checked') : event.target.parentElement.classList.remove('checked')
+            item.isCompleted ? event.target.nextElementSibling.classList.add('checked') : event.target.nextElementSibling.classList.remove('checked')
         } 
     })
-    
-
-    // event.target.parentElement.style = 'text-decoration: line-through'
     addToLocalStorage(tasks);
 }
 
@@ -78,7 +83,6 @@ const addToLocalStorage = (tasks) => {
 }
 
 const getFromLocalStorage = (tasks) => {
-    // let tasks = JSON.parse(localStorage.getItem('tasks'));
     tasks.forEach((task)=>{
         addToDom(task);
     })

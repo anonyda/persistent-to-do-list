@@ -4,25 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap" rel="stylesheet">
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet"> -->
     <link rel="stylesheet" href="./styles/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.1.0/uuidv4.min.js"></script>
     <script src="./src/app.js" defer></script>
     <title>To Do List</title>
 </head>
 <body>
-    <h1>To Do List</h1>
-    <div class="input-container">
-        <form action="#" name="taskInput" onsubmit="addTask(event)">
-            <label for="task">Enter your Task</label>
-            <input type="text" name="task" id="task">
-            <input type="submit" value="Add">
-            <input type="button" value="Reset">
-            <!-- <button>Add Task</button>
-            <button id="resetTask">Reset</button> -->
-        </form>
-    </div>
-    <div id="task-list">
+    <div class="main-container">
+        <h1>To Do List</h1>
+        <div class="input-container">
+            <form action="#" name="taskInput" onsubmit="addTask(event)">
+                <label class="task_label" for="task">Today I need to</label>
+                <input type="text" name="task" id="task">
+                <input type="submit" value="Add" class="button">
+                <input type="button" value="Reset" class="button" onclick="resetInput()">
+            </form>
+        </div>
+        <div id="task-list">
 
+        </div>
     </div>
+    
 </body>
 </html>
