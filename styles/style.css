@@ -145,3 +145,17 @@ h1{
 .checked{
     text-decoration: line-through;
 }
+
+@media (max-width: 576px) {
+    #task{
+        width: 50%;
+    }
+
+    .task{
+        font-size: 1.2rem;
+    }
+
+    .checkbox{
+        padding: 0px 15px;
+    }
+}
