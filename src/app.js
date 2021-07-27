@@ -20,10 +20,19 @@ const addToDom = (task) =>{
     isCompletedBox.type = 'checkbox';
     isCompletedBox.classList.add('checkbox');
     isCompletedBox.addEventListener('change', isCompeletedTask);
-    let taskData = document.createElement('input');
+    
+    // let taskData = document.createElement('input');
 
-    taskData.disabled = true;
-    taskData.style.border = 'none';
+    let taskData = document.createElement('span');
+    taskData.classList.add('textarea');
+    taskData.role = 'textbox';
+    taskData.contentEditable = false;
+    taskData.innerText = task.data;
+    taskData.spellcheck = false;
+    
+
+    // taskData.disabled = true;
+    // taskData.style.border = 'none';
     taskData.classList.add('task')
 
     if(task.isCompleted){
@@ -84,7 +93,9 @@ const updateTask = (event) =>{
                     if(item.classList.contains('task')){
                         event.target.style.display = 'none';
                         event.target.nextElementSibling.style.display = 'unset';
-                        item.disabled = false;
+                        item.contentEditable = true;
+                        item.classList.add('box-shadow')
+                        
                     }
                 })
             }else{
@@ -101,10 +112,11 @@ const updateTaskContent = (event) => {
         if(item.classList.contains('task')){
             tasks.forEach((task) => {
                 if(task.id == event.target.nextElementSibling.id){
-                    task.data = item.value;
+                    task.data = item.innerText;
                     event.target.style.display = 'none';
                     event.target.previousElementSibling.style.display = 'unset';
-                    item.disabled=true;
+                    item.contentEditable = false;
+                    item.classList.remove('box-shadow');
                 }
             })
         }
