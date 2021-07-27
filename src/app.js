@@ -17,6 +17,10 @@ const addToDom = (task) =>{
     let isCompletedBox = document.createElement('input');
     isCompletedBox.type = 'checkbox';
     isCompletedBox.addEventListener('change', isCompeletedTask);
+    if(task.isCompleted){
+        taskDiv.classList.add('checked');
+        isCompletedBox.checked = true;
+    }
     let taskData = document.createElement('p');
     let taskLog = document.createElement('p');
     let deleteBtn = document.createElement('input');
@@ -60,9 +64,12 @@ const isCompeletedTask = (event) =>{
     tasks.forEach((item) => {
         if(item.id == event.target.parentElement.id){
             item.isCompleted = !item.isCompleted;
-        }
+            item.isCompleted ? event.target.parentElement.classList.add('checked') : event.target.parentElement.classList.remove('checked')
+        } 
     })
-    event.target.parentElement.style = 'text-decoration: line-through'
+    
+
+    // event.target.parentElement.style = 'text-decoration: line-through'
     addToLocalStorage(tasks);
 }
 
