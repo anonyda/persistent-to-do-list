@@ -85,6 +85,8 @@ const resetInput = () => {
     taskInput.value = "";
 }
 
+// When the update button is clicked
+
 const updateTask = (event) =>{
     let selectedItem = event.target.parentNode;
     let selectedTask = tasks.find((task) => {
@@ -102,6 +104,8 @@ const updateTask = (event) =>{
     }
     
 }
+
+// When the tick is clicked after task updation
 
 const updateTaskContent = (event) => {
     let selectedItem = event.target.parentNode;
@@ -122,7 +126,7 @@ const deleteTask = (event) =>{
     
     console.log(event);
     if(confirm(`Do you really want to delete this task?`)){
-        tasks = tasks.filter((item) => {
+        tasks = tasks.filter((item) => {                                    // filtering the task list, removed the deleted task
             return item.id != event.target.id
         })
         document.getElementById(event.target.id).remove();
@@ -136,7 +140,9 @@ const isCompeletedTask = (event) =>{
         return item.id == event.target.parentElement.id
     })
     selectedTask.isCompleted = !selectedTask.isCompleted;
-    selectedTask.isCompleted ? event.target.nextElementSibling.classList.add('checked') : event.target.nextElementSibling.classList.remove('checked')
+    selectedTask.isCompleted 
+        ? event.target.nextElementSibling.classList.add('checked') 
+        : event.target.nextElementSibling.classList.remove('checked')
     
     addToLocalStorage(tasks);
 }
