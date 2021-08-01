@@ -26,7 +26,6 @@ const addToDom = (task) =>{
     isCompletedBox.classList.add('checkbox');
     isCompletedBox.addEventListener('change', isCompeletedTask);
     
-    // let taskData = document.createElement('input');
 
     let taskData = document.createElement('span');
     taskData.classList.add('textarea');
@@ -35,10 +34,7 @@ const addToDom = (task) =>{
     taskData.innerText = task.data;
     taskData.spellcheck = false;
     
-
-    // taskData.disabled = true;
-    // taskData.style.border = 'none';
-    taskData.classList.add('task')
+    taskData.classList.add('task-data')
 
     if(task.isCompleted){
         taskData.classList.add('checked');
@@ -62,7 +58,6 @@ const addToDom = (task) =>{
     deleteBtn.classList.add('deleteBtn', 'fas', 'fa-trash');
     deleteBtn.addEventListener('click', deleteTask);
 
-    // taskData.innerText = task.data;
     taskData.value = task.data;
     taskLog.innerText = task.createdAt;
     taskLog.classList.add('date-time');
@@ -79,12 +74,10 @@ const addToDom = (task) =>{
 
 const addTask = (event) =>{
     event.preventDefault();
-    // console.log(event)
     let task = new Task(taskInput.value);
     tasks.push(task);
     addToDom(task);
     addToLocalStorage(tasks);
-    // console.log(tasks);
     taskInput.value = "";
 }
 
@@ -93,46 +86,40 @@ const resetInput = () => {
 }
 
 const updateTask = (event) =>{
-    tasks.forEach((task)=>{
-        if(task.id == event.target.id){
-            if(!task.isCompleted){
-                event.target.parentNode.childNodes.forEach((item) => {
-                    if(item.classList.contains('task')){
-                        event.target.style.display = 'none';
-                        event.target.nextElementSibling.style.display = 'unset';
-                        item.contentEditable = true;
-                        item.classList.add('box-shadow');
-                        
-                    }
-                })
-            }else{
-                alert("Task is already completed! Can't edit :(")
-            }
-        }
-
+    let selectedItem = event.target.parentNode;
+    let selectedTask = tasks.find((task) => {
+        return task.id == event.target.id;
     })
+    if(!selectedTask.isCompleted){
+        let taskData = selectedItem.querySelector('.task-data');
+        event.target.style.display = 'none';
+        event.target.nextElementSibling.style.display = 'unset';
+        taskData.contentEditable = true;
+        taskData.classList.add('box-shadow');
+    }
+    else{
+        alert("Task is already completed! Can't edit :(");
+    }
     
 }
 
 const updateTaskContent = (event) => {
-    event.target.parentNode.childNodes.forEach((item) => {
-        if(item.classList.contains('task')){
-            tasks.forEach((task) => {
-                if(task.id == event.target.nextElementSibling.id){
-                    task.data = item.innerText;
-                    event.target.style.display = 'none';
-                    event.target.previousElementSibling.style.display = 'unset';
-                    item.contentEditable = false;
-                    item.classList.remove('box-shadow');
-                }
-            })
-        }
+    let selectedItem = event.target.parentNode;
+    let selectedTask = tasks.find((task) => {
+        return task.id == event.target.nextElementSibling.id;
     })
+    let taskData = selectedItem.querySelector('.task-data');
+    selectedTask.data = taskData.innerText;
+    event.target.style.display = 'none';
+    event.target.previousElementSibling.style.display = 'unset';
+    taskData.contentEditable = false;
+    taskData.classList.remove('box-shadow');
+
     addToLocalStorage(tasks);
 }
 
 const deleteTask = (event) =>{
-    // console.log('delete button pressed', event.target.id);
+    
     console.log(event);
     if(confirm(`Do you really want to delete this task?`)){
         tasks = tasks.filter((item) => {
@@ -145,12 +132,12 @@ const deleteTask = (event) =>{
 }
 
 const isCompeletedTask = (event) =>{
-    tasks.forEach((item) => {
-        if(item.id == event.target.parentElement.id){
-            item.isCompleted = !item.isCompleted;
-            item.isCompleted ? event.target.nextElementSibling.classList.add('checked') : event.target.nextElementSibling.classList.remove('checked')
-        } 
+    let selectedTask = tasks.find((item) => {
+        return item.id == event.target.parentElement.id
     })
+    selectedTask.isCompleted = !selectedTask.isCompleted;
+    selectedTask.isCompleted ? event.target.nextElementSibling.classList.add('checked') : event.target.nextElementSibling.classList.remove('checked')
+    
     addToLocalStorage(tasks);
 }
 
@@ -172,5 +159,5 @@ n =  new Date();
 y = n.getFullYear();
 m = n.getMonth() + 1;
 d = n.getDate();
-document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+document.getElementById("date").innerText = d + "/" + m + "/" + y;
    

@@ -111,7 +111,7 @@ i{
     width: 95%;
 }
 
-.task{
+.task, .task-data{
     width: 100%;
     max-width: 100%;
     margin-right: 20px;
